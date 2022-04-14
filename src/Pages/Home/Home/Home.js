@@ -1,10 +1,15 @@
 import React from 'react';
+import Banner from '../Banar/Banner';
+import Exparts from '../Exparts/Exparts';
+import Services from '../Services/Services';
 
 const Home = () => {
     return (
-        <div>
-            <h2>this is home</h2>
-        </div>
+        <>
+            <Banner></Banner>
+            <Services></Services>
+            <Exparts></Exparts>
+        </>
     );
 };
 

@@ -1,0 +1,17 @@
+.servic {
+    width: 320px;
+    border: 1px solid gray;
+    box-sizing: border-box;
+    box-shadow: 1px 0px 8px #808080ad;
+    border-radius: 6px;
+}
+
+.servic img {
+    border-radius: 5px 5px 0px 0px;
+    max-width: 100%;
+}
+
+.servic-info {
+    padding: 10px;
+    padding-top: 0px;
+}
