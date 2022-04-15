@@ -1,9 +1,16 @@
+import { signOut } from 'firebase/auth';
 import React from 'react';
 import { Container, Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
+import auth from '../../firebase.init';
 import logo from '../../images/logo.png'
 
 const Header = () => {
+    const [user] = useAuthState(auth);
+    const handelSignOut = () => {
+        signOut(auth);
+    }
     return (
         <Navbar bg="primary" sticky='top' expand="lg">
             <Container fluid>
@@ -28,7 +35,11 @@ const Header = () => {
                             aria-label="Search"
                         />
                         <Button variant="primary">Search</Button>
-                        <Button variant="primary" as={Link} to="/login">Login</Button>
+                        {
+                            user ?
+                                <Button onClick={handelSignOut} variant="primary">SignOut</Button>
+                                :
+                                <Button variant="primary" as={Link} to="/login">Login</Button>}
                     </Form>
                 </Navbar.Collapse>
             </Container>
