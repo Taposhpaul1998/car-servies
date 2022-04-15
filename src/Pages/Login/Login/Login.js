@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
+import SocialLogin from '../SocialLogin/SocialLogin';
 
 const Login = () => {
-
     const [
         signInWithEmailAndPassword,
         user,
@@ -16,8 +16,11 @@ const Login = () => {
     const emailRef = useRef('');
     const passwordRef = useRef('');
     const navigate = useNavigate();
+    const location = useLocation();
+    let from = location.state?.from?.pathname || "/";
+
     if (user) {
-        navigate('/home')
+        navigate(from, { replace: true })
     }
     const handelSubmit = (e) => {
         e.preventDefault();
@@ -37,7 +40,6 @@ const Login = () => {
                     <Form.Label>Email address</Form.Label>
                     <Form.Control ref={emailRef} type="email" placeholder="Enter email" required />
                     <Form.Text className="text-muted">
-                        We'll never share your email with anyone else.
                     </Form.Text>
                 </Form.Group>
 
@@ -53,9 +55,7 @@ const Login = () => {
                 </Button>
             </Form>
             <p>New to Car servies? <span className='text-danger user-select-none' onClick={navigateRegister}>Place Register</span></p>
-            <Button variant="primary">
-                Login With Google
-            </Button>
+            <SocialLogin></SocialLogin>
         </div>
     );
 };
