@@ -27,6 +27,14 @@ const Header = () => {
                         <Nav.Link href="home#exparts">Exparts</Nav.Link>
                         <Nav.Link as={Link} to="/about">About</Nav.Link>
                     </Nav>
+                    <Nav>
+                        {
+                            user && <>
+                            <Nav.Link as={Link} to="/addservice">Add</Nav.Link>
+                            <Nav.Link as={Link} to="/manage">Manege</Nav.Link>
+                            </>
+                        }
+                    </Nav>
                     <Form className="d-flex">
                         <FormControl
                             type="search"

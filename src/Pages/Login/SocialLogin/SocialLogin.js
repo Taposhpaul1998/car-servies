@@ -5,16 +5,19 @@ import github from '../../../images/social/github.png'
 import facebook from '../../../images/social/facebook.png'
 import auth from '../../../firebase.init';
 import { useSignInWithGithub, useSignInWithGoogle } from 'react-firebase-hooks/auth';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const SocialLogin = () => {
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
-    const [signInWithGithub] = useSignInWithGithub(auth);
+    const [signInWithGithub, user2, loading2, error2] = useSignInWithGithub(auth);
     const navigate = useNavigate();
-    const location = useLocation();
-    let from = location.state?.from?.pathname || "/";
-    if (user) {
-        navigate(from, { replace: true })
+    let errorElement;
+
+    if (error || error2) {
+        errorElement = <p className="text-danger">Error:{error?.message} {error2?.message}</p>
+    }
+    if (user || user2) {
+        navigate("/home")
     }
     return (
         <div>
@@ -23,6 +26,7 @@ const SocialLogin = () => {
                 <p className='mt-2 px-3'>or</p>
                 <div className='border w-50'></div>
             </div>
+            {errorElement}
             <div className='m-2'>
                 <Button onClick={() => signInWithGoogle()} className='w-50 mx-auto d-block py-2'>
                     <img className='mx-2' style={{ width: '25px' }} src={google} alt="" />
